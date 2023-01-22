@@ -25,7 +25,7 @@ class GetTVShowsTest(unittest.TestCase):
         tmdb = HomePage(self.driver)
         tmdb.home_page()
         tmdb.tv_shows()
-        tmdb.get_info()
+        print(tmdb.get_content())
 
     @classmethod
     def tearDownClass(cls):

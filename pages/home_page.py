@@ -16,6 +16,8 @@ class HomePage(object):
             By.XPATH, '/html/body/div[1]/header/div[1]/div/div[1]/ul/li[2]/a')
         self.people_locator = (
             By.XPATH, '/html/body/div[1]/header/div[1]/div/div[1]/ul/li[3]/a')
+        self.content_locator = (
+            By.XPATH, '//div[@class="card style_1"]//div[@class="content"]')
         self.titles_locator = (
             By.XPATH, '//div/div[2]/h2/a')
         self.release_dates_locator = (
@@ -93,79 +95,6 @@ class HomePage(object):
         )
         people_option.click()
 
-    def get_titles(self):
-        """
-        Returns a list of the titles
-
-        Return: titles (list)
-        """
-        driver = self.driver
-        titles = WebDriverWait(driver, 10).until(
-            EC.visibility_of_any_elements_located(
-                self.titles_locator
-            )
-        )
-
-        return [element.text for element in titles]
-
-    def get_release_dates(self):
-        """
-        Returns a list of the release dates
-        """
-        driver = self.driver
-        release_dates = WebDriverWait(driver, 10).until(
-            EC.visibility_of_any_elements_located(
-                self.release_dates_locator
-            )
-        )
-
-        return [element.text for element in release_dates]
-
-    def get_user_scores(self):
-        """
-        Returns a list of the user scores
-        """
-        driver = self.driver
-        user_scores = WebDriverWait(driver, 10).until(
-            EC.visibility_of_any_elements_located(
-                self.user_scores_locator
-            )
-        )
-
-        return [element.get_attribute("class")[-2:] for element in user_scores]
-
-    def get_info(self, number=20):
-        """
-        Returns a list of dictionarys 
-        with the information about the movies or tv shows.
-
-        Limit the amount with the number parameter.
-
-        Keyword arguments:
-        number - A integer between 1 and 20
-
-        Return:
-        list_movies_or_tv_shows (list)
-        """
-        titles = self.get_titles()
-        release_dates = self.get_release_dates()
-        user_scores = self.get_user_scores()
-
-        list_movies_or_tv_shows = []
-
-        for i in range(number):
-            list_movies_or_tv_shows.append(
-                {
-                    "title": titles[i],
-                    "release_date": release_dates[i],
-                    "user_score": user_scores[i],
-                }
-            )
-
-        print(list_movies_or_tv_shows)
-
-        return list_movies_or_tv_shows[:number]
-
     def get_names(self):
         """
         Returns a list of the names
@@ -221,3 +150,43 @@ class HomePage(object):
         print(people)
 
         return people[:number]
+
+    def get_content(self, number=20):
+        """
+        Returns a list of dictionarys 
+        with the information about the movies or tv shows.
+
+        Limit the amount with the number parameter.
+
+        Keyword arguments:
+        number - A integer between 1 and 20
+
+        Return:
+        content_list (list)
+        """
+        driver = self.driver
+        content_list = []
+
+        content = WebDriverWait(driver, 10).until(
+            EC.visibility_of_any_elements_located(
+                self.content_locator
+            )
+        )
+
+        for element in content:
+
+            title = element.find_element(By.XPATH, "./h2").text or "No title"
+            release_date = element.find_element(
+                By.XPATH, "./p").text or "No release date"
+            user_score = element.find_element(
+                By.XPATH, "./div/div/div").get_attribute("data-percent") or "No rated"
+
+            content_list.append(
+                {
+                    "title": title,
+                    "release_date": release_date,
+                    "user_score": user_score
+                }
+            )
+
+        return content_list

@@ -25,7 +25,7 @@ class GetPeopleTest(unittest.TestCase):
         tmdb = HomePage(self.driver)
         tmdb.home_page()
         tmdb.people()
-        tmdb.get_people_info()
+        print(tmdb.get_people_info())
 
     @classmethod
     def tearDownClass(cls):
