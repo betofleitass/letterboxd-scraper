@@ -23,7 +23,7 @@ class HomePageTest(unittest.TestCase):
 
     def test_home_page(self):
         tmdb = HomePage(self.driver)
-        tmdb.home_page()
+        tmdb.open_page()
 
     @classmethod
     def tearDownClass(cls):

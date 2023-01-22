@@ -1,18 +1,16 @@
-
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
 class MoviesPage(object):
     def __init__(self, driver):
         self.driver = driver
-        self.url = 'https://www.themoviedb.org/movie/language=en'
-        self.content_locator = (
-            By.XPATH, '//div[@class="card style_1"]//div[@class="content"]')
+        self.url = 'https://www.themoviedb.org/movie/?language=en'
         self.movies_locator = (
             By.XPATH, '/html/body/div[1]/header/div[1]/div/div[1]/ul/li[1]/a')
+        self.content_locator = (
+            By.XPATH, '//div[@class="card style_1"]//div[@class="content"]')
         self.titles_locator = (
             By.XPATH, '//div/div[2]/h2/a')
         self.release_dates_locator = (
@@ -22,16 +20,11 @@ class MoviesPage(object):
 
     def open_page(self, option='Popular'):
         """
-        Returns a list of dictionarys
-        with the information about the popular people.
-
-        Limit the amount with the number parameter.
+        Go to movie page depending on the option.
+        option is set 'Popular' by default.
 
         Keyword arguments:
-        number - A integer between 1 and 20
-
-        Return:
-        people (list)
+        option (string) - "Popular", "Now Playing", "Upcoming", "Top Rated"
         """
         driver = self.driver
         self.driver.get(self.url)
@@ -52,7 +45,7 @@ class MoviesPage(object):
     def get_content(self, number=20):
         """
         Returns a list of dictionarys
-        with the information about the movies or tv shows.
+        with the information about the movies.
 
         Limit the amount with the number parameter.
 
@@ -87,4 +80,4 @@ class MoviesPage(object):
                 }
             )
 
-        return content_list
+        return content_list[:number]

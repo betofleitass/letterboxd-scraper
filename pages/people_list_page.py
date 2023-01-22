@@ -1,7 +1,5 @@
-
-from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -18,13 +16,11 @@ class PeoplePage(object):
 
     def open_page(self, option="Popular People"):
         """
-        Returns a list of dictionarys
-        with the information about the popular people.
+        Go to people page depending on the option.
+        option is set 'Popular People' by default.
 
-        Limit the amount with the number parameter.
-
-        Return:
-        people (list)
+        Keyword arguments:
+        option (string) - "Popular"
         """
         driver = self.driver
         self.driver.get(self.url)
@@ -71,7 +67,7 @@ class PeoplePage(object):
     def get_people_info(self, number=20):
         """
         Returns a list of dictionarys 
-        with the information about the popular people.
+        with the information about the people.
 
         Limit the amount with the number parameter.
 
@@ -84,54 +80,7 @@ class PeoplePage(object):
         names = self.get_names()
         popular_by = self.get_popular_by()
 
-        people = []
-
-        for i in range(number):
-            people.append(
-                {
-                    "name": names[i],
-                    "popular_by": popular_by[i],
-                }
-            )
-
-        print(people)
+        people = [{"name": names[i], "popular_by": popular_by[i]}
+                  for i in range(number)]
 
         return people[:number]
-        """
-        Returns a list of dictionarys
-        with the information about the movies or tv shows.
-
-        Limit the amount with the number parameter.
-
-        Keyword arguments:
-        number - A integer between 1 and 20
-
-        Return:
-        content_list (list)
-        """
-        driver = self.driver
-        content_list = []
-
-        content = WebDriverWait(driver, 10).until(
-            EC.visibility_of_any_elements_located(
-                self.content_locator
-            )
-        )
-
-        for element in content:
-
-            title = element.find_element(By.XPATH, "./h2").text or "No title"
-            release_date = element.find_element(
-                By.XPATH, "./p").text or "No release date"
-            user_score = element.find_element(
-                By.XPATH, "./div/div/div").get_attribute("data-percent") or "No rated"
-
-            content_list.append(
-                {
-                    "title": title,
-                    "release_date": release_date,
-                    "user_score": user_score
-                }
-            )
-
-        return content_list
