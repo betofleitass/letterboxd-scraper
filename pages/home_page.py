@@ -158,7 +158,7 @@ class HomePage(object):
                 {
                     "title": titles[i],
                     "release_date": release_dates[i],
-                    "user_scores": user_scores[i],
+                    "user_score": user_scores[i],
                 }
             )
 

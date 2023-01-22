@@ -10,7 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from pages.home_page import HomePage
 
 
-class HomePageTest(unittest.TestCase):
+class GetMoviesTest(unittest.TestCase):
 
     # Decorator allows to different pages run in the same window
     @classmethod
@@ -21,9 +21,11 @@ class HomePageTest(unittest.TestCase):
         driver.implicitly_wait(5)
         driver.maximize_window()
 
-    def test_home_page(self):
+    def test_get_movies(self):
         tmdb = HomePage(self.driver)
         tmdb.home_page()
+        tmdb.movies()
+        tmdb.get_info()
 
     @classmethod
     def tearDownClass(cls):
@@ -32,7 +34,7 @@ class HomePageTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2, testRunner=HTMLTestRunner(
-        output='reports/HomePageTest',
-        report_name='HomePageTest_report',
-        report_title='Home Page Test')
+        output='reports/GetMoviesTest',
+        report_name='GetMoviesTest_report',
+        report_title='Get Movies Test')
     )
