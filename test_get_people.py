@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
-from pages.home_page import HomePage
+from pages.people_list_page import PeoplePage
 
 
 class GetPeopleTest(unittest.TestCase):
@@ -22,9 +22,8 @@ class GetPeopleTest(unittest.TestCase):
         driver.maximize_window()
 
     def test_get_people(self):
-        tmdb = HomePage(self.driver)
-        tmdb.home_page()
-        tmdb.people()
+        tmdb = PeoplePage(self.driver)
+        tmdb.open_page()
         print(tmdb.get_people_info())
 
     @classmethod

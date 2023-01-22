@@ -20,8 +20,7 @@ kwargs = {
     "output": "reports/smoke-report",
     "report_name": "smoke-report",
     "report_name": "Smoke Report",
-    "combine_reports": True,
-    "add_timestamp": False
+    "combine_reports": True
 }
 
 runner = HTMLTestRunner(**kwargs)

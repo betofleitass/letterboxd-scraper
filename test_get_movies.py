@@ -7,7 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
-from pages.home_page import HomePage
+from pages.movies_list_page import MoviesPage
 
 
 class GetMoviesTest(unittest.TestCase):
@@ -22,9 +22,8 @@ class GetMoviesTest(unittest.TestCase):
         driver.maximize_window()
 
     def test_get_movies(self):
-        tmdb = HomePage(self.driver)
-        tmdb.home_page()
-        tmdb.movies()
+        tmdb = MoviesPage(self.driver)
+        tmdb.open_page()
         print(tmdb.get_content())
 
     @classmethod
