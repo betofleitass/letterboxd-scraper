@@ -87,8 +87,6 @@ class HomePage(object):
     def get_release_dates(self):
         """
         Returns a list of the release dates
-
-        Return: release_dates (list)
         """
         driver = self.driver
         release_dates = WebDriverWait(driver, 10).until(
@@ -102,8 +100,6 @@ class HomePage(object):
     def get_user_scores(self):
         """
         Returns a list of the user scores
-
-        Return: user_scores (list)
         """
         driver = self.driver
         user_scores = WebDriverWait(driver, 10).until(
@@ -113,3 +109,35 @@ class HomePage(object):
         )
 
         return [element.get_attribute("class")[-2:] for element in user_scores]
+
+    def get_info(self, number=20):
+        """
+        Returns a list of dictionarys 
+        with the information about the movies or tv shows.
+
+        Limit the amount with the number parameter.
+
+        Keyword arguments:
+        number - A integer between 1 and 20
+
+        Return:
+        list_movies_or_tv_shows (list)
+        """
+        titles = self.get_titles()
+        release_dates = self.get_release_dates()
+        user_scores = self.get_user_scores()
+
+        list_movies_or_tv_shows = []
+
+        for i in range(number):
+            list_movies_or_tv_shows.append(
+                {
+                    "title": titles[i],
+                    "release_date": release_dates[i],
+                    "user_scores": user_scores[i],
+                }
+            )
+
+        print(list_movies_or_tv_shows)
+
+        return list_movies_or_tv_shows[:number]
