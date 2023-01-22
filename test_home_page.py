@@ -21,17 +21,21 @@ class HomePageTest(unittest.TestCase):
         driver.implicitly_wait(5)
         driver.maximize_window()
 
-    def test_home_page(self):
-        tmdb = HomePage(self.driver)
-        tmdb.home_page()
+    # def test_home_page(self):
+    #     tmdb = HomePage(self.driver)
+    #     tmdb.home_page()
 
     def test_movies(self):
         tmdb = HomePage(self.driver)
+        tmdb.home_page()
         tmdb.movies()
+        # print(tmdb.get_titles())
+        # print(tmdb.get_release_dates())
+        print(tmdb.get_user_scores())
 
-    def test_tv_shows(self):
-        tmdb = HomePage(self.driver)
-        tmdb.tv_shows()
+    # def test_tv_shows(self):
+    #     tmdb = HomePage(self.driver)
+    #     tmdb.tv_shows()
 
     @classmethod
     def tearDownClass(cls):

@@ -14,6 +14,12 @@ class HomePage(object):
             By.XPATH, '/html/body/div[1]/header/div[1]/div/div[1]/ul/li[1]/a')
         self.tv_shows_locator = (
             By.XPATH, '/html/body/div[1]/header/div[1]/div/div[1]/ul/li[2]/a')
+        self.titles_locator = (
+            By.XPATH, '//div/div[2]/h2/a')
+        self.release_dates_locator = (
+            By.XPATH, '//div/div[2]/p')
+        self.user_scores_locator = (
+            By.XPATH, '//div[@class="page_wrapper"]/div/div[2]/div/div/div/div/span')
 
     def home_page(self):
         self.driver.get(self.url)
@@ -62,3 +68,48 @@ class HomePage(object):
             )
         )
         tv_shows_option.click()
+
+    def get_titles(self):
+        """
+        Returns a list of the titles
+
+        Return: titles (list)
+        """
+        driver = self.driver
+        titles = WebDriverWait(driver, 10).until(
+            EC.visibility_of_any_elements_located(
+                self.titles_locator
+            )
+        )
+
+        return [element.text for element in titles]
+
+    def get_release_dates(self):
+        """
+        Returns a list of the release dates
+
+        Return: release_dates (list)
+        """
+        driver = self.driver
+        release_dates = WebDriverWait(driver, 10).until(
+            EC.visibility_of_any_elements_located(
+                self.release_dates_locator
+            )
+        )
+
+        return [element.text for element in release_dates]
+
+    def get_user_scores(self):
+        """
+        Returns a list of the user scores
+
+        Return: user_scores (list)
+        """
+        driver = self.driver
+        user_scores = WebDriverWait(driver, 10).until(
+            EC.visibility_of_any_elements_located(
+                self.user_scores_locator
+            )
+        )
+
+        return [element.get_attribute("class")[-2:] for element in user_scores]
