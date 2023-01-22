@@ -25,16 +25,22 @@ class HomePageTest(unittest.TestCase):
         tmdb = HomePage(self.driver)
         tmdb.home_page()
 
-    def test_movies(self):
+    # def test_get_movies(self):
+    #     tmdb = HomePage(self.driver)
+    #     tmdb.home_page()
+    #     tmdb.movies()
+    #     tmdb.get_info(3)
+
+    # def test_get_tv_shows(self):
+    #     tmdb = HomePage(self.driver)
+    #     tmdb.tv_shows()
+    #     tmdb.get_info(5)
+
+    def test_get_people(self):
         tmdb = HomePage(self.driver)
         tmdb.home_page()
-        tmdb.movies()
-        tmdb.get_info(5)
-
-    def test_tv_shows(self):
-        tmdb = HomePage(self.driver)
-        tmdb.tv_shows()
-        tmdb.get_info(3)
+        tmdb.people()
+        tmdb.get_people_info(8)
 
     @classmethod
     def tearDownClass(cls):
