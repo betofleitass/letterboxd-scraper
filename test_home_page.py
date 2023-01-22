@@ -25,6 +25,14 @@ class HomePageTest(unittest.TestCase):
         tmdb = HomePage(self.driver)
         tmdb.home_page()
 
+    def test_movies(self):
+        tmdb = HomePage(self.driver)
+        tmdb.movies()
+
+    def test_tv_shows(self):
+        tmdb = HomePage(self.driver)
+        tmdb.tv_shows()
+
     @classmethod
     def tearDownClass(cls):
         cls.driver.quit()
@@ -33,6 +41,6 @@ class HomePageTest(unittest.TestCase):
 if __name__ == "__main__":
     unittest.main(verbosity=2, testRunner=HTMLTestRunner(
         output='reports/HomePageTest',
-        report_name='HomePageTest_report'),
-        report_title='Home Page Test'
+        report_name='HomePageTest_report',
+        report_title='Home Page Test')
     )
